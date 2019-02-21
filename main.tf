@@ -62,8 +62,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 }
 
 resource "aws_acm_certificate" "site_certificate" {
-  domain = "${var.website_name}"
-  provider = "aws.usest1"
+  domain_name = "${var.website_name}"
   validation_method = "DNS"
   
   lifecycle {
@@ -72,8 +71,22 @@ resource "aws_acm_certificate" "site_certificate" {
 }
 
 resource "aws_acm_certificate_validation" "site_certificate_validation" {
-  provider = "aws.useast1"
   certificate_arn = "${aws_acm_certificate.site_certificate.arn}"
   validation_record_fqdns = ["${aws_route53_record.site_certificate_validation_record.fqdn}"]
-  
 }
+
+data "aws_route53_zone" "zone" {
+  name = "${var.website_name}"
+}
+
+resource "aws_route53_record" "site_certificate_validation_record" {
+  zone_id = "${data.aws_route53_zone.zone.zone_id}" 
+  name = "${data.aws_route53_zone.zone.name}"
+  type = "A"
+  alias {
+    name = "${aws_cloudfront_distribution.cloudfront.domain_name}"
+    zone_id = "${aws_cloudfront_distribution.cloudfront.hosted_zone_id}"
+    evaluate_target_health = false
+  }  
+}
+
