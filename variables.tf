@@ -14,3 +14,8 @@ variable "price_class" {
     description = "AWS Cloudfront price class. One of PriceClass_All, PriceClass_200, PriceClass_100"
     default = "PriceClass_All"
 }
+
+variable "hosted_zone_id" {
+  type = "string"
+  description = "Hosted zone id for domain name"  
+}
