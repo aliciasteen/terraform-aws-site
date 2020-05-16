@@ -22,7 +22,7 @@ variable "hosted_zone_id" {
 }
 
 variable "route53-enabled" {
-  type        = boolean
+  type        = bool
   description = "Use route53 for DNS?"
   default     = true
 }
