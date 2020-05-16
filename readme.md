@@ -48,8 +48,9 @@ module "cloudfront_site" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| hosted\_zone\_id | Hosted zone id for domain name | `string` | `""` | no |
+| bucket\_name | Name of S3 bucket to create | `string` | n/a | yes |
+| website\_name | Website alias for cloudfront | `string` | n/a | yes |
+| hosted\_zone\_id | Hosted zone id for domain name (optional) | `string` | `""` | no |
 | price\_class | AWS Cloudfront price class. One of PriceClass\_All, PriceClass\_200, PriceClass\_100 | `string` | `"PriceClass_All"` | no |
 | region | AWS Region to create bucket in | `string` | `"eu-west-1"` | no |
-| route53-enabled | Use route53 for DNS? | `boolean` | `true` | no |
-| website\_name | n/a | `string` | `"website"` | no |
+| route53-enabled | Use route53 for DNS? | `bool` | `true` | no |

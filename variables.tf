@@ -1,6 +1,11 @@
 variable "website_name" {
-  type    = string
-  default = "website"
+  type        = string
+  description = "Website alias for cloudfront"
+}
+
+variable "bucket_name" {
+  type        = string
+  description = "Name of S3 bucket to create"
 }
 
 variable "region" {
@@ -17,7 +22,7 @@ variable "price_class" {
 
 variable "hosted_zone_id" {
   type        = string
-  description = "Hosted zone id for domain name"
+  description = "Hosted zone id for domain name (optional)"
   default     = ""
 }
 

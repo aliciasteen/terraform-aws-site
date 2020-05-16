@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = var.website_name
+  bucket = var.bucket_name
   acl    = "private"
   policy = data.aws_iam_policy_document.bucket_policy.json
   tags = {
-    Name = var.website_name
+    Name = var.bucket_name
   }
   region = var.region
 }
@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "bucket" {
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["arn:aws:s3:::${var.website_name}/*"]
+    resources = ["arn:aws:s3:::${var.bucket_name}/*"]
 
     principals {
       type        = "AWS"
@@ -19,4 +19,3 @@ data "aws_iam_policy_document" "bucket_policy" {
     }
   }
 }
-
